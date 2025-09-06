@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potiguar • Intermitentes</title>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center gap-4">
+      {% if brand_logo %}
+      <img src="{{ brand_logo }}" alt="Potiguar" class="h-10 w-auto object-contain">
+      {% endif %}
+      <div>
+        <h1 class="text-xl font-bold leading-tight">Potiguar Engenharia</h1>
+        <p class="text-sm text-gray-500 -mt-0.5">Painel de Colaboradores Intermitentes</p>
+      </div>
+      <div class="ml-auto flex items-center gap-2">
+        <a href="{{ url_for('importar_ods') }}" class="text-sm px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100">Admin · Importar ODS</a>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="space-y-2 mb-4">
+          {% for cat, msg in messages %}
+            <div class="px-4 py-2 rounded-lg text-sm {% if cat=='ok' %}bg-green-50 text-green-700 border border-green-200{% else %}bg-red-50 text-red-700 border border-red-200{% endif %}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="text-center text-xs text-gray-400 py-6">&copy; {{ 2025 }} Potiguar Engenharia — HR • Intermitentes</footer>
+</body>
+</html>
